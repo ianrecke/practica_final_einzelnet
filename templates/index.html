@@ -1,0 +1,30 @@
+<html>
+<body>
+    <h3>Modelo de prediccion de covid casos mundiales</h3>
+
+<div>
+  <form action="/result" method="POST">
+    <label for="fecha_entrada">Fecha de entrada: </label>
+    <input type="date" id="fecha_entrada" name="fecha_entrada">
+    <br>
+    <label for="fecha_salida">Fecha de salida: </label>
+    <input type="date" id="fecha_salida" name="fecha_salida">
+    <br>
+    <br>
+    <div id="div_salida">
+        <label for = "select_salida">Introduce tu localidad de Salida:</label>
+        <select>
+            {{opciones}}
+        </select>
+    </div>
+    <div id="div_destino">
+        <label for = "select_destino">Introduce tu localidad de Destino:</label>
+        <select>
+            {{opciones}}
+        </select>
+    </div>
+    <input type="submit" value="Submit">
+  </form>
+</div>
+</body>
+</html>
