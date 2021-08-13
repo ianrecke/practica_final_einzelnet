@@ -18,7 +18,6 @@ from sklearn.preprocessing import PolynomialFeatures
 from sklearn.svm import SVR
 from sklearn.metrics import mean_squared_error, mean_absolute_error
 import datetime
-+import pickle
 
 #creating instance of the class
 app=Flask(__name__)
