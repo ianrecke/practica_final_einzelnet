@@ -100,11 +100,9 @@ def result():
     if request.method == 'POST':
         to_predict_list = request.form.to_dict()
         to_predict_list = list(to_predict_list.values())
-        to_predict_list = resultados_ordinal(to_predict_list)
-        copia_predict_list = to_predict_list
+        copia_entrada = to_predict_list
         try:
             to_predict_list = list(map(float, to_predict_list))
-            result = ValuePredictor(to_predict_list)
             if int(result)==0:
                 prediction='El numero de casos positivos esta por debajo de la media :D '
             elif int(result)==1:
@@ -114,7 +112,7 @@ def result():
         except ValueError:
             prediction='Error en el formato de los datos'
         
-        return render_template("result.html", prediction=prediction)
+        return render_template("result.html", prediction=copia_entrada)
 
 
 if __name__=="__main__":
