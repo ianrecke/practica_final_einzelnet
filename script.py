@@ -7,7 +7,6 @@ import pickle
 import pandas as pd
 from sklearn import tree
 from flask import Flask, render_template, request
-import math
 from sklearn.linear_model import LinearRegression, BayesianRidge
 from sklearn.model_selection import RandomizedSearchCV, train_test_split
 from sklearn.preprocessing import PolynomialFeatures
