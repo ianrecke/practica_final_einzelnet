@@ -22,10 +22,10 @@ app=Flask(__name__)
 def index():
     confirmed_df = pd.read_csv('https://raw.githubusercontent.com/CSSEGISandData/COVID-19/master/csse_covid_19_data/csse_covid_19_time_series/time_series_covid19_confirmed_global.csv')
     paises = confirmed_df['Country/Region'].unique()
-    cuerpo = ""
+    opciones = ""
     for i in paises:
-        cuerpo+="<option>"+i+"</option>"
-    return flask.render_template('index.html',opciones=cuerpo)
+        opciones+="<option>"+i+"</option>"
+    return flask.render_template('index.html',opciones=opciones)
 
 def daily_increase(data):
     d = [] 
