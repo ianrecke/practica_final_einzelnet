@@ -25,7 +25,7 @@ def index():
 def result():
     if request.method == 'POST':
         try:
-            
+            print("hello")
             
             else:
                 prediction=f'{int(result)} No-definida'
