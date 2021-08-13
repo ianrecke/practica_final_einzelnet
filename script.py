@@ -8,6 +8,7 @@ import pandas as pd
 from sklearn import tree
 from flask import Flask, render_template, request
 
+
 #creating instance of the class
 app=Flask(__name__)
 
@@ -17,36 +18,81 @@ app=Flask(__name__)
 def index():
     return flask.render_template('index.html')
 
-def ValuePredictor(to_predict_list):
-    to_predict = to_predict_list
-    loaded_model = pickle.load(open("random_forest_classifier_entropy.sav","rb"))
-    to_predict = np.array(to_predict).reshape(1,-1)
-    result = loaded_model.predict(to_predict)
-    return result[0]
+def daily_increase(data):
+    d = [] 
+    for i in range(len(data)):
+        if i == 0:
+            d.append(data[0])
+        else:
+            d.append(data[i]-data[i-1])
+    return d 
 
-def resultados_ordinal(to_predict):
-    dataset_owid = pd.read_csv('owid-covid-data.csv',na_values='?')
-    dataset_owid_ordinal = pd.read_csv('dataset_ordinal.csv',na_values='?')
-    continente_ordinal = dataset_owid_ordinal['continent'].iloc[np.where(dataset_owid['continent'] == to_predict[0])[0][0]]
-    region_ordinal = dataset_owid_ordinal['location'].iloc[np.where(dataset_owid['location'] == to_predict[1])[0][1]]
-    to_predict[0] = continente_ordinal
-    to_predict[1] = region_ordinal
-    return to_predict
+def moving_average(data, window_size):
+    moving_average = []
+    for i in range(len(data)):
+        if i + window_size < len(data):
+            moving_average.append(np.mean(data[i:i+window_size]))
+        else:
+            moving_average.append(np.mean(data[i:len(data)]))
+    return moving_average
 
+def entrenamientoModelo(X_train_confirmed,X_test_confirmed,future_forcast):
+    poly = PolynomialFeatures(degree=4)
+    poly_X_train_confirmed = poly.fit_transform(X_train_confirmed)
+    poly_X_test_confirmed = poly.fit_transform(X_test_confirmed)
+    poly_future_forcast = poly.fit_transform(future_forcast)
+    linear_model = LinearRegression(normalize=True, fit_intercept=False)
+    linear_model.fit(poly_X_train_confirmed, y_train_confirmed)
+    return linear_model
+    
+def obtencion_datos():
+    confirmed_df = pd.read_csv('https://raw.githubusercontent.com/CSSEGISandData/COVID-19/master/csse_covid_19_data/csse_covid_19_time_series/time_series_covid19_confirmed_global.csv')
+    deaths_df = pd.read_csv('https://raw.githubusercontent.com/CSSEGISandData/COVID-19/master/csse_covid_19_data/csse_covid_19_time_series/time_series_covid19_deaths_global.csv')
+    # recoveries_df = pd.read_csv('https://raw.githubusercontent.com/CSSEGISandData/COVID-19/master/csse_covid_19_data/csse_covid_19_time_series/time_series_covid19_recovered_global.csv')
+    latest_data = pd.read_csv('https://raw.githubusercontent.com/CSSEGISandData/COVID-19/master/csse_covid_19_data/csse_covid_19_daily_reports/08-06-2021.csv')
+    
+    confirmed = confirmed_df.loc[:, cols[4]:cols[-1]]
+    deaths = deaths_df.loc[:, cols[4]:cols[-1]]
+    dates = confirmed.keys()
+    world_cases = []
+    total_deaths = [] 
+    mortality_rate = []
+    for i in dates:
+        confirmed_sum = confirmed[i].sum()
+        death_sum = deaths[i].sum()
+        world_cases.append(confirmed_sum)
+        total_deaths.append(death_sum)
+        mortality_rate.append(death_sum/confirmed_sum)
+        
+    window = 7
+
+    # confirmed cases
+    world_daily_increase = daily_increase(world_cases)
+    world_confirmed_avg= moving_average(world_cases, window)
+    world_daily_increase_avg = moving_average(world_daily_increase, window)
+
+    # deaths
+    world_daily_death = daily_increase(total_deaths)
+    world_death_avg = moving_average(total_deaths, window)
+    world_daily_death_avg = moving_average(world_daily_death, window)
+    
+    days_since_1_22 = np.array([i for i in range(len(dates))]).reshape(-1, 1)
+    world_cases = np.array(world_cases).reshape(-1, 1)
+    total_deaths = np.array(total_deaths).reshape(-1, 1)
+
+    days_in_future = 10
+    future_forcast = np.array([i for i in range(len(dates)+days_in_future)]).reshape(-1, 1)
+    adjusted_dates = future_forcast[:-10]
+    X_train_confirmed, X_test_confirmed, y_train_confirmed, y_test_confirmed = train_test_split(days_since_1_22[50:], world_cases[50:], test_size=0.03, shuffle=False) 
+    modelo = entrenamientoModelo(X_train_confirmed,X_test_confirmed,future_forcast)
+    
+    
 @app.route('/result',methods = ['POST'])
 def result():
     if request.method == 'POST':
-        to_predict_list = request.form.to_dict()
-        to_predict_list = list(to_predict_list.values())
-        to_predict_list = resultados_ordinal(to_predict_list)
-        copia_predict_list = to_predict_list
         try:
-            to_predict_list = list(map(float, to_predict_list))
-            result = ValuePredictor(to_predict_list)
-            if int(result)==0:
-                prediction='El numero de casos positivos esta por debajo de la media :D '
-            elif int(result)==1:
-                prediction='El numero de casos positivos esta por encima de la media, estate alerta!'
+            print("hello")
+            
             else:
                 prediction=f'{int(result)} No-definida'
         except ValueError:
