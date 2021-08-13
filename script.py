@@ -40,6 +40,15 @@ def moving_average(data, window_size):
             moving_average.append(np.mean(data[i:len(data)]))
     return moving_average
 
+def entrenamientoModelo(X_train_confirmed,X_test_confirmed,future_forcast):
+    poly = PolynomialFeatures(degree=4)
+    poly_X_train_confirmed = poly.fit_transform(X_train_confirmed)
+    poly_X_test_confirmed = poly.fit_transform(X_test_confirmed)
+    poly_future_forcast = poly.fit_transform(future_forcast)
+    linear_model = LinearRegression(normalize=True, fit_intercept=False)
+    linear_model.fit(poly_X_train_confirmed, y_train_confirmed)
+    return linear_model
+
 def obtencion_datos():
     confirmed_df = pd.read_csv('https://raw.githubusercontent.com/CSSEGISandData/COVID-19/master/csse_covid_19_data/csse_covid_19_time_series/time_series_covid19_confirmed_global.csv')
     deaths_df = pd.read_csv('https://raw.githubusercontent.com/CSSEGISandData/COVID-19/master/csse_covid_19_data/csse_covid_19_time_series/time_series_covid19_deaths_global.csv')
