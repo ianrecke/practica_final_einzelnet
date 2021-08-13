@@ -22,6 +22,24 @@ app=Flask(__name__)
 def index():
     return flask.render_template('index.html')
 
+def daily_increase(data):
+    d = [] 
+    for i in range(len(data)):
+        if i == 0:
+            d.append(data[0])
+        else:
+            d.append(data[i]-data[i-1])
+    return d 
+
+def moving_average(data, window_size):
+    moving_average = []
+    for i in range(len(data)):
+        if i + window_size < len(data):
+            moving_average.append(np.mean(data[i:i+window_size]))
+        else:
+            moving_average.append(np.mean(data[i:len(data)]))
+    return moving_average
+
 def obtencion_datos():
     confirmed_df = pd.read_csv('https://raw.githubusercontent.com/CSSEGISandData/COVID-19/master/csse_covid_19_data/csse_covid_19_time_series/time_series_covid19_confirmed_global.csv')
     deaths_df = pd.read_csv('https://raw.githubusercontent.com/CSSEGISandData/COVID-19/master/csse_covid_19_data/csse_covid_19_time_series/time_series_covid19_deaths_global.csv')
