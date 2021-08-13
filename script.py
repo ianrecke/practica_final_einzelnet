@@ -6,7 +6,6 @@ import category_encoders as ce
 import pickle
 import pandas as pd
 from sklearn import tree
-
 from flask import Flask, render_template, request
 
 
@@ -20,7 +19,6 @@ def index():
     return flask.render_template('index.html')
 
 
-    
 @app.route('/result',methods = ['POST'])
 def result():
     if request.method == 'POST':
