@@ -18,14 +18,7 @@ from sklearn.preprocessing import PolynomialFeatures
 from sklearn.svm import SVR
 from sklearn.metrics import mean_squared_error, mean_absolute_error
 import datetime
-import operator 
-plt.style.use('fivethirtyeight')
-%matplotlib inline
-from IPython.display import set_matplotlib_formats
-set_matplotlib_formats('retina')
-import warnings
-warnings.filterwarnings("ignore")
-import pickle
++import pickle
 
 #creating instance of the class
 app=Flask(__name__)
