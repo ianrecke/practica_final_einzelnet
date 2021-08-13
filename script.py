@@ -95,15 +95,14 @@ def obtencion_datos():
 def result():
     if request.method == 'POST':
         try:
-            to_predict_list = request.form.to_dict()
-            to_predict_list = list(to_predict_list.values())
+            
             
             else:
                 prediction=f'{int(result)} No-definida'
         except ValueError:
             prediction='Error en el formato de los datos'
         
-        return render_template("result.html", prediction=to_predict_list)
+        return render_template("result.html", prediction=prediction)
 
 
 if __name__=="__main__":
