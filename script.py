@@ -123,11 +123,14 @@ def result():
         copia_entrada = to_predict_list
         try:
             to_predict_list = list(map(float, to_predict_list))
-            print("el resultado de la prediccion es: {}".format(result)) 
+            if result < 0:
+                prediccion = '<p style="color: green">El numero de casos de covid a nivel Global disminuye en un '+result+' para la fecha indicada</p>'
+                else:
+                    prediccion = '<p style="color: red">El numero de casos de covid a nivel Global aumenta en un '+result+' para la fecha indicada</p>'
         except ValueError:
             prediction='Error en el formato de los datos'
         
-        return render_template("result.html", prediction=result) 
+        return render_template("result.html", prediction=prediccion) 
 
 
 if __name__=="__main__":
