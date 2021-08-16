@@ -112,7 +112,7 @@ def result():
         to_predict_list = list(to_predict_list.values())
         fecha = to_predict_list[0].split(sep = '-')
         fecha = fecha[1]+"/"+fecha[2]+'/'+fecha[0]
-#         result = predicciones(fecha,dates) 
+        result = predicciones(fecha,dates)
         copia_entrada = to_predict_list
         try:
             to_predict_list = list(map(float, to_predict_list))
@@ -120,7 +120,7 @@ def result():
         except ValueError:
             prediction='Error en el formato de los datos'
         
-        return render_template("result.html", prediction=type(fecha)) 
+        return render_template("result.html", prediction=fecha) 
 
 
 if __name__=="__main__":
