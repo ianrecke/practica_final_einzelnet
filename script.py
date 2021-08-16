@@ -103,6 +103,8 @@ def predicciones(prediccion,dates,modelo):
     poly = PolynomialFeatures(degree=4)
     number_date = poly.fit_transform(number_date.reshape(-1,1))
     prediccion = modelo.predict(number_date)
+    return prediccion
+    
 
 @app.route('/result',methods = ['POST'])
 def result():
@@ -120,7 +122,7 @@ def result():
         except ValueError:
             prediction='Error en el formato de los datos'
         
-        return render_template("result.html", prediction=fecha) 
+        return render_template("result.html", prediction=resultado) 
 
 
 if __name__=="__main__":
