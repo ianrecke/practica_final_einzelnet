@@ -90,7 +90,7 @@ def obtencion_datos():
     adjusted_dates = future_forcast[:-10]
     X_train_confirmed, X_test_confirmed, y_train_confirmed, y_test_confirmed = train_test_split(days_since_1_22[50:], world_cases[50:], test_size=0.03, shuffle=False) 
     modelo = entrenamientoModelo(X_train_confirmed,X_test_confirmed,y_train_confirmed,future_forcast)
-    return modelo,dates
+    return modelo,dates,world_cases
 
 def predicciones(prediccion,dates,modelo):
     start = '1/22/2020'
@@ -105,16 +105,21 @@ def predicciones(prediccion,dates,modelo):
     prediccion = modelo.predict(number_date)
     return prediccion
     
+def diferencia_covid(result,world_cases):
+    diferencia = prediccion - world_cases[-1] 
+    porcentaje = diferencia/(prediccion+world_cases[-1])
+    return porcentaje
 
 @app.route('/result',methods = ['POST'])
 def result():
     if request.method == 'POST':
-        modelo,dates = obtencion_datos()
+        modelo,dates,world_cases = obtencion_datos()
         to_predict_list = request.form.to_dict()
         to_predict_list = list(to_predict_list.values())
         fecha = to_predict_list[0].split(sep = '-')
         fecha = fecha[1]+"/"+fecha[2]+'/'+fecha[0]
         result = predicciones(fecha,dates,modelo)
+        result = diferencia_covid(result,world_cases)
         copia_entrada = to_predict_list
         try:
             to_predict_list = list(map(float, to_predict_list))
