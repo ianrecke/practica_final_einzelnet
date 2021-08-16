@@ -116,7 +116,7 @@ def result():
         copia_entrada = to_predict_list
         try:
             to_predict_list = list(map(float, to_predict_list))
-            print("el resultado de la prediccion es: {}".format(result))
+            print("el resultado de la prediccion es: {}".format(result)) 
         except ValueError:
             prediction='Error en el formato de los datos'
         
