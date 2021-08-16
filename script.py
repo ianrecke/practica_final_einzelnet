@@ -122,7 +122,6 @@ def result():
         result = diferencia_covid(result,world_cases)
         copia_entrada = to_predict_list
         try:
-            to_predict_list = list(map(float, to_predict_list))
             if result[0][0] < 0:
                 prediction = '<p style="color: green">El numero de casos de covid a nivel Global disminuye en un '+result+' para la fecha indicada</p>'
             else:
@@ -130,7 +129,7 @@ def result():
         except ValueError:
             prediction='Error en el formato de los datos'
         
-        return render_template("result.html", prediction=prediction)
+        return render_template("result.html", prediction=result)
 
 if __name__=="__main__":
 
