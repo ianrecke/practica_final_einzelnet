@@ -91,21 +91,29 @@ def obtencion_datos():
     modelo = entrenamientoModelo(X_train_confirmed,X_test_confirmed,y_train_confirmed,future_forcast)
     return modelo
 
+def predicciones(prediccion):
+    start = '1/22/2020'
+    future_forcast = np.array([i for i in range(len(dates)+20)]).reshape(-1, 1)
+    start_date = datetime.datetime.strptime(start, '%m/%d/%Y')
+    future_forcast_dates = []
+    for i in range(len(future_forcast)):
+        future_forcast_dates.append((start_date + datetime.timedelta(days=i)).strftime('%m/%d/%Y'))
+    number_date = np.where(np.array(future_forcast_dates) == prediccion)[0][0]
+    poly = PolynomialFeatures(degree=4)
+    number_date = poly.fit_transform(number_date.reshape(-1,1))
+    prediccion = modelo.predict(number_date)
+
 @app.route('/result',methods = ['POST'])
 def result():
     if request.method == 'POST':
         modelo = obtencion_datos()
         to_predict_list = request.form.to_dict()
         to_predict_list = list(to_predict_list.values())
+        result = predicciones(to_predict_list[0])
         copia_entrada = to_predict_list
         try:
             to_predict_list = list(map(float, to_predict_list))
-            if int(result)==0:
-                prediction='El numero de casos positivos esta por debajo de la media :D '
-            elif int(result)==1:
-                prediction='El numero de casos positivos esta por encima de la media, estate alerta!'
-            else:
-                prediction=f'{int(result)} No-definida'
+            print("el resultado de la prediccion es: {}".format(result))
         except ValueError:
             prediction='Error en el formato de los datos'
         
