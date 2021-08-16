@@ -40,7 +40,7 @@ def moving_average(data, window_size):
             moving_average.append(np.mean(data[i:len(data)]))
     return moving_average
 
-def entrenamientoModelo(X_train_confirmed,X_test_confirmed,future_forcast):
+def entrenamientoModelo(X_train_confirmed,X_test_confirmed,y_train_confirmed,future_forcast):
     poly = PolynomialFeatures(degree=4)
     poly_X_train_confirmed = poly.fit_transform(X_train_confirmed)
     poly_X_test_confirmed = poly.fit_transform(X_test_confirmed)
@@ -88,7 +88,7 @@ def obtencion_datos():
     future_forcast = np.array([i for i in range(len(dates)+days_in_future)]).reshape(-1, 1)
     adjusted_dates = future_forcast[:-10]
     X_train_confirmed, X_test_confirmed, y_train_confirmed, y_test_confirmed = train_test_split(days_since_1_22[50:], world_cases[50:], test_size=0.03, shuffle=False) 
-    modelo = entrenamientoModelo(X_train_confirmed,X_test_confirmed,future_forcast)
+    modelo = entrenamientoModelo(X_train_confirmed,X_test_confirmed,y_train_confirmed,future_forcast)
     return modelo
 
 @app.route('/result',methods = ['POST'])
