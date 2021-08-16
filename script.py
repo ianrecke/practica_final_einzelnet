@@ -20,11 +20,6 @@ app=Flask(__name__)
 @app.route('/')
 @app.route('/index')
 def index():
-    confirmed_df = pd.read_csv('https://raw.githubusercontent.com/CSSEGISandData/COVID-19/master/csse_covid_19_data/csse_covid_19_time_series/time_series_covid19_confirmed_global.csv')
-    paises = confirmed_df['Country/Region'].unique()
-    opciones = ""
-    for i in paises:
-        opciones+="<option>"+i+"</option>"
     return flask.render_template('index.html',opciones=opciones)
 
 def daily_increase(data):
@@ -94,10 +89,12 @@ def obtencion_datos():
     adjusted_dates = future_forcast[:-10]
     X_train_confirmed, X_test_confirmed, y_train_confirmed, y_test_confirmed = train_test_split(days_since_1_22[50:], world_cases[50:], test_size=0.03, shuffle=False) 
     modelo = entrenamientoModelo(X_train_confirmed,X_test_confirmed,future_forcast)
+    return modelo
 
 @app.route('/result',methods = ['POST'])
 def result():
     if request.method == 'POST':
+        modelo = obtencion_datos()
         to_predict_list = request.form.to_dict()
         to_predict_list = list(to_predict_list.values())
         copia_entrada = to_predict_list
