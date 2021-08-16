@@ -92,7 +92,7 @@ def obtencion_datos():
     modelo = entrenamientoModelo(X_train_confirmed,X_test_confirmed,y_train_confirmed,future_forcast)
     return modelo,dates
 
-def predicciones(prediccion,dates):
+def predicciones(prediccion,dates,modelo):
     start = '1/22/2020'
     future_forcast = np.array([i for i in range(len(dates)+20)]).reshape(-1, 1)
     start_date = datetime.datetime.strptime(start, '%m/%d/%Y')
@@ -112,7 +112,7 @@ def result():
         to_predict_list = list(to_predict_list.values())
         fecha = to_predict_list[0].split(sep = '-')
         fecha = fecha[1]+"/"+fecha[2]+'/'+fecha[0]
-        result = predicciones(fecha,dates)
+        result = predicciones(fecha,dates,modelo)
         copia_entrada = to_predict_list
         try:
             to_predict_list = list(map(float, to_predict_list))
