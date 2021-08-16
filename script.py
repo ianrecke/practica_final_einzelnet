@@ -20,7 +20,7 @@ app=Flask(__name__)
 @app.route('/')
 @app.route('/index')
 def index():
-    return flask.render_template('index.html',opciones=opciones)
+    return flask.render_template('index.html')
 
 def daily_increase(data):
     d = [] 
