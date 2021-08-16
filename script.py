@@ -54,7 +54,7 @@ def obtencion_datos():
     deaths_df = pd.read_csv('https://raw.githubusercontent.com/CSSEGISandData/COVID-19/master/csse_covid_19_data/csse_covid_19_time_series/time_series_covid19_deaths_global.csv')
     # recoveries_df = pd.read_csv('https://raw.githubusercontent.com/CSSEGISandData/COVID-19/master/csse_covid_19_data/csse_covid_19_time_series/time_series_covid19_recovered_global.csv')
     latest_data = pd.read_csv('https://raw.githubusercontent.com/CSSEGISandData/COVID-19/master/csse_covid_19_data/csse_covid_19_daily_reports/08-06-2021.csv')
-    
+    cols = confirmed_df.keys()
     confirmed = confirmed_df.loc[:, cols[4]:cols[-1]]
     deaths = deaths_df.loc[:, cols[4]:cols[-1]]
     dates = confirmed.keys()
