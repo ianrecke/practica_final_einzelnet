@@ -119,7 +119,7 @@ def result():
         except ValueError:
             prediction='Error en el formato de los datos'
         
-        return render_template("result.html", prediction=fecha)
+        return render_template("result.html", prediction=fecha) 
 
 
 if __name__=="__main__":
