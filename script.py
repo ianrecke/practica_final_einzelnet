@@ -105,7 +105,7 @@ def predicciones(prediccion,dates,modelo):
     prediccion = modelo.predict(number_date)
     return prediccion
     
-def diferencia_covid(result,world_cases):
+def diferencia_covid(prediccion,world_cases):
     diferencia = prediccion - world_cases[-1] 
     porcentaje = diferencia/(prediccion+world_cases[-1])
     return porcentaje
