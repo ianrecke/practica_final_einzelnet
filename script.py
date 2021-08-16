@@ -110,6 +110,8 @@ def result():
         modelo,dates = obtencion_datos()
         to_predict_list = request.form.to_dict()
         to_predict_list = list(to_predict_list.values())
+#         result = predicciones(to_predict_list[0],dates)
+        fecha = datetime.datetime.strptime(to_predict_list[0], '%m/%d/%Y')
         copia_entrada = to_predict_list
         try:
             to_predict_list = list(map(float, to_predict_list))
@@ -117,7 +119,7 @@ def result():
         except ValueError:
             prediction='Error en el formato de los datos'
         
-        return render_template("result.html", prediction=to_predict_list[0])
+        return render_template("result.html", prediction=fecha)
 
 
 if __name__=="__main__":
