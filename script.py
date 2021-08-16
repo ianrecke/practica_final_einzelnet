@@ -122,7 +122,7 @@ def result():
         except ValueError:
             prediction='Error en el formato de los datos'
         
-        return render_template("result.html", prediction=resultado) 
+        return render_template("result.html", prediction=result) 
 
 
 if __name__=="__main__":
