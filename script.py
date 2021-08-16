@@ -110,9 +110,9 @@ def result():
         modelo,dates = obtencion_datos()
         to_predict_list = request.form.to_dict()
         to_predict_list = list(to_predict_list.values())
-#         result = predicciones(to_predict_list[0],dates)
         fecha = to_predict_list[0].split(sep = '-')
         fecha = fecha[1]+"/"+fecha[2]+'/'+fecha[0]
+        result = predicciones(fecha,dates)
         copia_entrada = to_predict_list
         try:
             to_predict_list = list(map(float, to_predict_list))
