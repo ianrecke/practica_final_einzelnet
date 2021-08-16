@@ -56,6 +56,7 @@ def obtencion_datos():
     latest_data = pd.read_csv('https://raw.githubusercontent.com/CSSEGISandData/COVID-19/master/csse_covid_19_data/csse_covid_19_daily_reports/08-06-2021.csv')
     cols = confirmed_df.keys()
     confirmed = confirmed_df.loc[:, cols[4]:cols[-1]]
+    dates = confirmed.keys()
     deaths = deaths_df.loc[:, cols[4]:cols[-1]]
     dates = confirmed.keys()
     world_cases = []
@@ -89,9 +90,9 @@ def obtencion_datos():
     adjusted_dates = future_forcast[:-10]
     X_train_confirmed, X_test_confirmed, y_train_confirmed, y_test_confirmed = train_test_split(days_since_1_22[50:], world_cases[50:], test_size=0.03, shuffle=False) 
     modelo = entrenamientoModelo(X_train_confirmed,X_test_confirmed,y_train_confirmed,future_forcast)
-    return modelo
+    return modelo,dates
 
-def predicciones(prediccion):
+def predicciones(prediccion,dates):
     start = '1/22/2020'
     future_forcast = np.array([i for i in range(len(dates)+20)]).reshape(-1, 1)
     start_date = datetime.datetime.strptime(start, '%m/%d/%Y')
@@ -106,10 +107,10 @@ def predicciones(prediccion):
 @app.route('/result',methods = ['POST'])
 def result():
     if request.method == 'POST':
-        modelo = obtencion_datos()
+        modelo,dates = obtencion_datos()
         to_predict_list = request.form.to_dict()
         to_predict_list = list(to_predict_list.values())
-        result = predicciones(to_predict_list[0])
+        result = predicciones(to_predict_list[0],dates)
         copia_entrada = to_predict_list
         try:
             to_predict_list = list(map(float, to_predict_list))
