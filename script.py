@@ -130,9 +130,11 @@ def result():
         fecha2 = to_predict_list[1].split(sep = '-')
         fecha2 = fecha2[1]+"/"+fecha2[2]+'/'+fecha2[0]
         result = predicciones(fecha,dates,modelo)
+        casos_pais1 = result
         diferencia_pais1 = diferencia_pais(result,to_predict_list[2],world_cases)
         result2 = predicciones(fecha2,dates,modelo)
         diferencia_pais2 = diferencia_pais(result2,to_predict_list[3],world_cases)
+        casos_pais2 = result2
         result = diferencia_covid(result,world_cases)
         result2 = diferencia_covid(result2,world_cases)
         
@@ -147,7 +149,7 @@ def result():
         except ValueError:
             prediction='Error en el formato de los datos'
         
-        return render_template("result.html", fecha1=fecha,result=round(result[0][0],3)*100,result2 = round(result2[0][0],3)*100,fecha2 = fecha2,diferencia_pais1 = round(diferencia_pais1[0][0],3),diferencia_pais2 = round(diferencia_pais2[0][0],3),pais1 = to_predict_list[2],pais2 = to_predict_list[3])
+        return render_template("result.html", fecha1=fecha,result=round(result[0][0],3)*100,result2 = round(result2[0][0],3)*100,fecha2 = fecha2,diferencia_pais1 = round(diferencia_pais1[0][0],3),diferencia_pais2 = round(diferencia_pais2[0][0],3),pais1 = to_predict_list[2],pais2 = to_predict_list[3],casos_pais1 = casos_pais1,casos_pais2 = casos_pais2)
 
 if __name__=="__main__":
 
