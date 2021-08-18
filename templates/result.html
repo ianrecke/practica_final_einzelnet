@@ -10,7 +10,7 @@
    	<h3>En el caso del pais de salida {{pais1}}:</h3>
    	{%if diferencia_pais1>0%}
    		<p>El numero de casos de covid en {{pais1}} aumenta en un <i style="color: red">{{diferencia_pais1}}%</i>para la fecha indicada</p>
-   	{%else if diferencia_pais1 == 0%}
+   	{%elif diferencia_pais1 == 0%}
    		<p>El numero de casos de covid en {{pais1}} se mantiene estable para la fecha indicada con un numero total de casos de {{casos_pais1}}</p>
    	{%else%}
    		<p>El numero de casos de covid en {{pais1}} disminuye en un <i style="color: green">{{diferencia_pais1}}%</i> para la fecha indicada</p>
@@ -24,7 +24,7 @@
    		<h3>En el caso del pais de destino {{pais2}}:</h3>
    	{%if diferencia_pais2>0%}
    		<p>El numero de casos de covid en {{pais2}} aumenta en un <i style="color: red">{{diferencia_pais2}}%</i>para la fecha indicada</p>
-   	{%else if diferencia_pais2 == 0%}
+   	{%elif diferencia_pais2 == 0%}
    		<p>El numero de casos de covid en {{pais2}} se mantiene estable para la fecha indicada con un numero total de casos de {{casos_pais2}}</p>
    	{%else%}
    		<p>El numero de casos de covid en {{pais2}} disminuye en un <i style="color: green">{{diferencia_pais2}}%</i> para la fecha indicada</p>
