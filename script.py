@@ -110,6 +110,15 @@ def diferencia_covid(prediccion,world_cases):
     porcentaje = diferencia/(prediccion+world_cases[-1])
     return porcentaje
 
+def diferencia_pais(result,pais,world_cases):
+    confirmed_df = pd.read_csv('https://raw.githubusercontent.com/CSSEGISandData/COVID-19/master/csse_covid_19_data/csse_covid_19_time_series/time_series_covid19_confirmed_global.csv')
+    localizacion_pais = np.where(confirmed_df['Country/Region'] == pais)[0][0]
+    casos_pais = confirmed_df.iloc[localizacion_pais][-1] 
+    media_antes = casos_pais/world_cases[-1]
+    media_despues = casos_pais/prediccion
+    diferencia = (media_despues-media_antes)*100
+    return diferencia
+
 @app.route('/result',methods = ['POST'])
 def result():
     if request.method == 'POST':
@@ -124,6 +133,9 @@ def result():
         result2 = predicciones(fecha2,dates,modelo)
         result = diferencia_covid(result,world_cases)
         result2 = diferencia_covid(result2,world_cases)
+        
+        diferencia_pais1 = diferencia_pais(result,to_predict_list[2],world_cases)
+        diferencia_pais2 = diferencia_pais(result2,to_predict_list[3],world_cases)
         copia_entrada = to_predict_list
         try:
             if result[0][0] < 0:
@@ -133,7 +145,7 @@ def result():
         except ValueError:
             prediction='Error en el formato de los datos'
         
-        return render_template("result.html", fecha1=fecha,result=result[0][0],result2 = result2,fecha2 = fecha2)
+        return render_template("result.html", fecha1=fecha,result=round(result[0][0],3)*100,result2 = round(result2[0][0],3)*100,fecha2 = fecha2)
 
 if __name__=="__main__":
 
