@@ -130,12 +130,14 @@ def result():
         fecha2 = to_predict_list[1].split(sep = '-')
         fecha2 = fecha2[1]+"/"+fecha2[2]+'/'+fecha2[0]
         result = predicciones(fecha,dates,modelo)
+        diferencia_pais1 = diferencia_pais(result,to_predict_list[2],world_cases)
         result2 = predicciones(fecha2,dates,modelo)
+        diferencia_pais2 = diferencia_pais(result2,to_predict_list[3],world_cases)
         result = diferencia_covid(result,world_cases)
         result2 = diferencia_covid(result2,world_cases)
         
-        diferencia_pais1 = diferencia_pais(result,to_predict_list[2],world_cases)
-        diferencia_pais2 = diferencia_pais(result2,to_predict_list[3],world_cases)
+        
+        
         copia_entrada = to_predict_list
         try:
             if result[0][0] < 0:
