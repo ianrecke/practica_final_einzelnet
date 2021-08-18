@@ -110,7 +110,7 @@ def diferencia_covid(prediccion,world_cases):
     porcentaje = diferencia/(prediccion+world_cases[-1])
     return porcentaje
 
-def diferencia_pais(result,pais,world_cases):
+def diferencia_pais(prediccion,pais,world_cases):
     confirmed_df = pd.read_csv('https://raw.githubusercontent.com/CSSEGISandData/COVID-19/master/csse_covid_19_data/csse_covid_19_time_series/time_series_covid19_confirmed_global.csv')
     localizacion_pais = np.where(confirmed_df['Country/Region'] == pais)[0][0]
     casos_pais = confirmed_df.iloc[localizacion_pais][-1] 
