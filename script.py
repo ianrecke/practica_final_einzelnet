@@ -118,8 +118,12 @@ def result():
         to_predict_list = list(to_predict_list.values())
         fecha = to_predict_list[0].split(sep = '-')
         fecha = fecha[1]+"/"+fecha[2]+'/'+fecha[0]
+        fecha2 = to_predict_list[1].split(sep = '-')
+        fecha2 = fecha2[1]+"/"+fecha2[2]+'/'+fecha2[0]
         result = predicciones(fecha,dates,modelo)
+        result2 = predicciones(fecha2,dates,modelo)
         result = diferencia_covid(result,world_cases)
+        result2 = diferencia_covid(result2,world_cases)
         copia_entrada = to_predict_list
         try:
             if result[0][0] < 0:
@@ -129,7 +133,7 @@ def result():
         except ValueError:
             prediction='Error en el formato de los datos'
         
-        return render_template("result.html", fecha1=fecha,result=result)
+        return render_template("result.html", fecha1=fecha,result=result[0][0],result2 = result2,fecha2 = fecha2)
 
 if __name__=="__main__":
 

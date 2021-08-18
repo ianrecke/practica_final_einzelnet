@@ -1,12 +1,20 @@
 <!doctype html>
 <html>
-   <body>
+   <body background="./covid_image.png " style="background-repeat: repeat; background-position: center center; background-size: cover" >
    	<h2>Resultado de la prediccion para la fecha {{fecha1}}</h2>
    	{%if result>0%}
    		<p>El numero de casos de covid a nivel Global aumenta en un <i style="color: red">{{result}} </i>para la fecha indicada</p>
    	{%else%}
    		<p>El numero de casos de covid a nivel Global disminuye en un <i style="color: green">{{result}} </i> para la fecha indicada</p>
    	{%endif%}
+
+   	<h2>Resultado de la prediccion para la fecha {{fecha2}}</h2>
+   	{%if result2>0%}
+   		<p>El numero de casos de covid a nivel Global aumenta en un <i style="color: red">{{result2}} </i>para la fecha indicada</p>
+   	{%else%}
+   		<p>El numero de casos de covid a nivel Global disminuye en un <i style="color: green">{{result2}} </i> para la fecha indicada</p>
+   	{%endif%}
+
    </body>
 
 </html>
