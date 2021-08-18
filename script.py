@@ -145,7 +145,7 @@ def result():
         except ValueError:
             prediction='Error en el formato de los datos'
         
-        return render_template("result.html", fecha1=fecha,result=round(result[0][0],3)*100,result2 = round(result2[0][0],3)*100,fecha2 = fecha2,diferencia_pais1 = round(diferencia_pais1,3),diferencia_pais2 = round(diferencia_pais2,3),pais1 = to_predict_list[2],pais2 = to_predict_list[3])
+        return render_template("result.html", fecha1=fecha,result=round(result[0][0],3)*100,result2 = round(result2[0][0],3)*100,fecha2 = fecha2,diferencia_pais1 = round(diferencia_pais1[0][0],3),diferencia_pais2 = round(diferencia_pais2[0][0],3),pais1 = to_predict_list[2],pais2 = to_predict_list[3])
 
 if __name__=="__main__":
 
