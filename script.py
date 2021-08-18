@@ -123,13 +123,13 @@ def result():
         copia_entrada = to_predict_list
         try:
             if result[0][0] < 0:
-                prediction = '<p style="color: green">El numero de casos de covid a nivel Global disminuye en un '+str(result[0][0])+' para la fecha indicada</p>'
+                prediction = 'El numero de casos de covid a nivel Global disminuye en un '+str(result[0][0])+' para la fecha indicada'
             else:
-                prediction = '<p style="color: red">El numero de casos de covid a nivel Global aumenta en un '+str(result[0][0])+' para la fecha indicada</p>'
+                prediction = 'El numero de casos de covid a nivel Global aumenta en un '+str(result[0][0])+' para la fecha indicada'
         except ValueError:
             prediction='Error en el formato de los datos'
         
-        return render_template("result.html", prediction=prediction)
+        return render_template("result.html", fecha1=fecha,result=result)
 
 if __name__=="__main__":
 
