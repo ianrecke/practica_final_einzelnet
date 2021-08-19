@@ -41,7 +41,7 @@
    			<th>Edad: {{edad}}</th>
    			<th>Estatura: {{estatura}}</th>
    			<th>Peso: {{peso}}</th>
-   			<th>Resultado BMI: {{bmi}}</th>
+   			<th>Resultado BMI: {%if bmi == 1%}<p>Bmi sobre 30, obesidad</p>{%else%}<p>Bmi por debajo de 30, no obesidad</p>{%endif%}</th>
    			<th>Sexo: {{sexo}}</th>
    			<th>Intubación: {{intubacion}}</th>
    			<th>Neumonia: {{neumonia}}</th>
