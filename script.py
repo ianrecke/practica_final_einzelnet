@@ -155,7 +155,7 @@ def result():
         
         
         datos_uci = to_predict_list[4:]
-        obesidad = calculaBMI(datos_uci[11],to_predict_list[12])
+        obesidad = calculaBMI(datos_uci[11],datos_uci[12])
         datos_uci = np.array(datos_uci)
         datos_uci = np.array(datos_uci)
         datos_uci = np.delete(datos_uci,12)
