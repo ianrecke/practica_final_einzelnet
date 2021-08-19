@@ -126,6 +126,12 @@ def calculaBMI(estatura,peso):
     else:
         return 2
 
+def prediccion_uci(datos):
+    randomForest = pickle.load(open("random_forest_uci.pkl","rb"))
+    linnearRegressor = pickle.load(open("regresion_lineal.pkl","rb"))
+    randomF_pred = randomForest.predict(datos)
+    lr_pred = linnearRegressor.predict(datos)
+    return randomF_pred,lr_pred
 
 
 @app.route('/result',methods = ['POST'])
@@ -148,7 +154,8 @@ def result():
         result2 = diferencia_covid(result2,world_cases)
         
         
-        datos_uci = to_predict_list[3:]
+        datos_uci = to_predict_list[4:]
+        rf_p,lr_p = prediccion_uci(datos_uci)
         
         
         copia_entrada = to_predict_list
