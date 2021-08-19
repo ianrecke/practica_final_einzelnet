@@ -27,40 +27,52 @@
     </div>
     <div id = "formulario_obesidad...etc">
         <label for="sexo">Escoja su sexo: </label><select id = "sexo"><option value="99">No Especificado</option><option value="2">Hombre</option><option value="1">Mujer</option></select><br>
+        <input type="hidden" name="sexo" id="input_sexo">
+
         <label for="intubacion">¿Se le ha realizado alguna intubación?</label><select id="intubacion"><option value="99">No Especificado</option><option value="97">No aplica</option><option value="1">Si</option><option value="2">No</option></select><br>
+        <input type="hidden" name="intub" id="input_intub">
 
         <label for="neumonia">¿Padece de neumonía o sintomas similares?</label><select id="neumonia"><option value="99">No Especificado</option><option value="97">No aplica</option><option value="1">Si</option><option value="2">No</option></select><br>
-
+        <input type="hidden" name="neumo" id="input_neumo">
 
         <label for="edad">Introduzca su edad: </label><input id = "edad" type="integer" name="Edad"><br>
 
-
-
         <label for="embarazo">¿Se encuentra en estado de embarazo?</label><select id="embarazo"><option value="99">No Especificado</option><option value="97">No aplica</option><option value="1">Si</option><option value="2">No</option></select><br>
+        <input type="hidden" name="embarazo" id="input_embarazo">
+
 
         <label for="diabetes">¿Padece de diabetes?</label><select id="diabetes"><option value="99">No Especificado</option><option value="97">No aplica</option><option value="1">Si</option><option value="2">No</option></select><br>
+        <input type="hidden" name="diabetes" id="input_diabetes">
 
         <label for="asma">¿Padece de asma?</label><select id="asma"><option value="99">No Especificado</option><option value="97">No aplica</option><option value="1">Si</option><option value="2">No</option></select><br>
+        <input type="hidden" name="asma" id="input_asma">
 
         <label for="inmunosupr">¿Toma alguna sustancia inmunosupresora?</label><select id="inmunosupr"><option value="99">No Especificado</option><option value="97">No aplica</option><option value="1">Si</option><option value="2">No</option></select><br>
+        <input type="hidden" name="inmuno" id="input_inmuno">
 
         <label for="hypertension">¿Padece de hipertension?</label><select id="hypertension"><option value="99">No Especificado</option><option value="97">No aplica</option><option value="1">Si</option><option value="2">No</option></select><br>
+        <input type="hidden" name="hiperten" id="input_hiperten">
 
         <label for="enfermedad">¿Padece de alguna enfermedad?</label><select id="enfermedad"><option value="99">No Especificado</option><option value="97">No aplica</option><option value="1">Si</option><option value="2">No</option></select><br>
+        <input type="hidden" name="otro" id="input_otro">
 
         <label for="cardiovascular">¿Tiene algún problema cardiovascular?</label><select id="cardiovascular"><option value="99">No Especificado</option><option value="97">No aplica</option><option value="1">Si</option><option value="2">No</option></select><br>
+        <input type="hidden" name="cardio" id="input_cardio">
 
         <label for="estatura">Introduzca su estatura: (cm)</label><input id = "estatura" type="integer" name="estatura"><br>
         <label for="peso">Introduzca su peso: </label><input id = "peso" type="integer" name="peso"><br>
         
         
         <label for="renal">¿Padece de alguna enfermedad renal?</label><select id="renal"><option value="99">No Especificado</option><option value="97">No aplica</option><option value="1">Si</option><option value="2">No</option></select><br>
+        <input type="hidden" name="renal" id="input_renal">
 
 
         <label for="fumar">¿Fuma habitualmente?</label><select id="fumar"><option value="99">No Especificado</option><option value="97">No aplica</option><option value="1">Si</option><option value="2">No</option></select><br>
+        <input type="hidden" name="fumar" id="input_fumar">
 
-        
+
         <label for="contacto">¿Ha estado en contacto con algún otro paciente de covid recientemente?</label><select id="contacto"><option value="99">No Especificado</option><option value="97">No aplica</option><option value="1">Si</option><option value="2">No</option></select><br>
+        <input type="hidden" name="contacto" id="input_contacto">
     </div>
     <input type="submit" value="Submit" onclick="establecerValores();">
   </form>
@@ -76,6 +88,19 @@
     }function establecerValores(){
         document.getElementById("input_salida").value = document.getElementById("select_salida").value;
         document.getElementById("input_destino").value = document.getElementById("select_destino").value;
+        document.getElementById("input_sexo").value = document.getElementById("sexo").value;
+        document.getElementById("input_intub").value = document.getElementById("intubacion").value;
+        document.getElementById("input_neumo").value = document.getElementById("neumonia").value;
+        document.getElementById("input_embarazo").value = document.getElementById("embarazo").value;
+        document.getElementById("input_diabetes").value = document.getElementById("diabetes").value;
+        document.getElementById("input_asma").value = document.getElementById("asma").value;
+        document.getElementById("input_inmuno").value = document.getElementById("inmunosupr").value;
+        document.getElementById("input_hiperten").value = document.getElementById("hypertension").value;
+        document.getElementById("input_otro").value = document.getElementById("enfermedad").value;
+        document.getElementById("input_cardio").value = document.getElementById("cardiovascular").value;
+        document.getElementById("input_renal").value = document.getElementById("renal").value;
+        document.getElementById("input_fumar").value = document.getElementById("fumar").value;
+        document.getElementById("input_contacto").value = document.getElementById("contacto").value;
     }
     </script>
 </body>
