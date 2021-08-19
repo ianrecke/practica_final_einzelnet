@@ -134,6 +134,18 @@ def prediccion_uci(datos):
     return randomF_pred,lr_pred
 
 
+def convierteString(elemento):
+    if elemento == 1:
+        return "Si."
+    elif (elemento == 2):
+        return "No."
+    elif(elemento == 97):
+        return "No aplica."
+    elif(elemento == 98):
+        return "Se ignora."
+    else:
+        return "No especificado."
+
 @app.route('/result',methods = ['POST'])
 def result():
     if request.method == 'POST':
@@ -170,7 +182,7 @@ def result():
         except ValueError:
             prediction='Error en el formato de los datos'
         
-        return render_template("result.html", fecha1=fecha,result=round(result[0][0],3)*100,result2 = round(result2[0][0],3)*100,fecha2 = fecha2,diferencia_pais1 = round(diferencia_pais1[0][0],3),diferencia_pais2 = round(diferencia_pais2[0][0],3),pais1 = to_predict_list[2],pais2 = to_predict_list[3],casos_pais1 = casos_pais1,casos_pais2 = casos_pais2,sexo = datos_uci[0],intubacion = datos_uci[1],neumonia = datos_uci[2],edad = datos_uci[3],embarazo = datos_uci[4],diabetes = datos_uci[5],asma = datos_uci[6],inmunosupresores = datos_uci[7],hipertension = datos_uci[8],otra_enf = datos_uci[9],cardiovascular = datos_uci[10],bmi = datos_uci[11],renal = datos_uci[12],fumador = datos_uci[13],contacto = datos_uci[14],estatura = to_predict_list[15],peso = to_predict_list[16])
+        return render_template("result.html", fecha1=fecha,result=round(result[0][0],3)*100,result2 = round(result2[0][0],3)*100,fecha2 = fecha2,diferencia_pais1 = round(diferencia_pais1[0][0],3),diferencia_pais2 = round(diferencia_pais2[0][0],3),pais1 = to_predict_list[2],pais2 = to_predict_list[3],casos_pais1 = casos_pais1,casos_pais2 = casos_pais2,sexo = datos_uci[0],intubacion = convierteString(datos_uci[1]),neumonia = convierteString(datos_uci[2]),edad = datos_uci[3],embarazo = convierteString(datos_uci[4]),diabetes = convierteString(datos_uci[5]),asma = convierteString(datos_uci[6]),inmunosupresores = convierteString(datos_uci[7]),hipertension = convierteString(datos_uci[8]),otra_enf = convierteString(datos_uci[9]),cardiovascular = convierteString(datos_uci[10]),bmi = datos_uci[11],renal = convierteString(datos_uci[12]),fumador = convierteString(datos_uci[13]),contacto = convierteString(datos_uci[14]),estatura = to_predict_list[15],peso = to_predict_list[16])
 
 if __name__=="__main__":
 
