@@ -119,6 +119,15 @@ def diferencia_pais(prediccion,pais,world_cases):
     diferencia = (media_despues-media_antes)*100
     return diferencia
 
+def calculaBMI(estatura,peso):
+    BMI = (peso/((estatura*0.01)**2))
+    if BMI >=30:
+        return 1
+    else:
+        return 2
+
+
+
 @app.route('/result',methods = ['POST'])
 def result():
     if request.method == 'POST':
@@ -139,6 +148,8 @@ def result():
         result2 = diferencia_covid(result2,world_cases)
         
         
+        datos_uci = to_predict_list[3:]
+        
         
         copia_entrada = to_predict_list
         try:
@@ -149,7 +160,7 @@ def result():
         except ValueError:
             prediction='Error en el formato de los datos'
         
-        return render_template("result.html", fecha1=fecha,result=round(result[0][0],3)*100,result2 = round(result2[0][0],3)*100,fecha2 = fecha2,diferencia_pais1 = round(diferencia_pais1[0][0],3),diferencia_pais2 = round(diferencia_pais2[0][0],3),pais1 = to_predict_list[2],pais2 = to_predict_list[3],casos_pais1 = casos_pais1,casos_pais2 = casos_pais2)
+        return render_template("result.html", fecha1=fecha,result=round(result[0][0],3)*100,result2 = round(result2[0][0],3)*100,fecha2 = fecha2,diferencia_pais1 = round(diferencia_pais1[0][0],3),diferencia_pais2 = round(diferencia_pais2[0][0],3),pais1 = to_predict_list[2],pais2 = to_predict_list[3],casos_pais1 = casos_pais1,casos_pais2 = casos_pais2,edad = datos_uci)
 
 if __name__=="__main__":
 
