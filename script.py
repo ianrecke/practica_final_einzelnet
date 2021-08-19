@@ -155,9 +155,12 @@ def result():
         
         
         datos_uci = to_predict_list[4:]
+        obesidad = calculaBMI(to_predict_list[15],to_predict_list[16])
+        datos_uci = np.array(datos_uci)
+        datos_uci = np.array(datos_uci)
+        datos_uci = np.delete(datos_uci,12)
+        datos_uci[11] = obesidad
         rf_p,lr_p = prediccion_uci(datos_uci)
-        
-        
         copia_entrada = to_predict_list
         try:
             if result[0][0] < 0:
