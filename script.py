@@ -129,8 +129,8 @@ def calculaBMI(estatura,peso):
 def prediccion_uci(datos):
     randomForest = pickle.load(open("random_forest_uci.pkl","rb"))
     linnearRegressor = pickle.load(open("regresion_lineal.pkl","rb"))
-    randomF_pred = randomForest.predict(datos)
-    lr_pred = linnearRegressor.predict(datos)
+    randomF_pred = randomForest.predict(np.array(datos).reshape(1,-1))
+    lr_pred = linnearRegressor.predict(np.array(datos).reshape(1,-1))
     return randomF_pred,lr_pred
 
 
