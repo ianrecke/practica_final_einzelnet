@@ -146,17 +146,6 @@ def convierteString(elemento):
     else:
         return "No especificado."
 
-def conviertePredict(elemento): 
-     if elemento == 1:
-        return "Si."
-    elif (elemento == 2):
-        return "No."
-    elif(elemento == 97):
-        return "No aplica."
-    elif(elemento == 98):
-        return "Se ignora."
-    else:
-        return "No especificado."
 
 @app.route('/result',methods = ['POST'])
 def result():
