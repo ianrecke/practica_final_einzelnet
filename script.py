@@ -133,13 +133,13 @@ def prediccion_uci(datos):
 
 
 def convierteString(elemento):
-    if elemento == '1':
+    if elemento == '1' or elemento == 1:
         return "Si."
-    elif (elemento == '2'):
+    elif (elemento == '2' or elemento == 2):
         return "No."
-    elif(elemento == '97'):
+    elif(elemento == '97' or elemento == 97):
         return "No aplica."
-    elif(elemento == '98'):
+    elif(elemento == '98' or elemento == 98):
         return "Se ignora."
     else:
         return "No especificado."
