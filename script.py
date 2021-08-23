@@ -127,11 +127,9 @@ def calculaBMI(estatura,peso):
         return 2
 
 def prediccion_uci(datos):
-    randomForest = pickle.load(open("random_forest_uci.pkl","rb"))
-    linnearRegressor = pickle.load(open("regresion_lineal.pkl","rb"))
-    randomF_pred = randomForest.predict(np.array(datos).reshape(1,-1))
-    lr_pred = linnearRegressor.predict(np.array(datos).reshape(1,-1))
-    return randomF_pred,lr_pred
+    naive = pickle.load(open("naive_bayes.pkl","rb"))
+    naive = randomForest.predict(np.array(datos).reshape(1,-1))
+    return naive
 
 
 def convierteString(elemento):
@@ -173,7 +171,7 @@ def result():
         datos_uci = np.array(datos_uci)
         datos_uci = np.delete(datos_uci,12)
         datos_uci[11] = obesidad
-        rf_p,lr_p = prediccion_uci(datos_uci)
+        naive = prediccion_uci(datos_uci)
         copia_entrada = to_predict_list
         try:
             if result[0][0] < 0:
@@ -183,7 +181,7 @@ def result():
         except ValueError:
             prediction='Error en el formato de los datos'
         
-        return render_template("result.html", fecha1=fecha,result=round(result[0][0],3)*100,result2 = round(result2[0][0],3)*100,fecha2 = fecha2,diferencia_pais1 = round(diferencia_pais1[0][0],3),diferencia_pais2 = round(diferencia_pais2[0][0],3),pais1 = to_predict_list[2],pais2 = to_predict_list[3],casos_pais1 = casos_pais1,casos_pais2 = casos_pais2,sexo = int(datos_uci[0]),intubacion = convierteString(datos_uci[1]),neumonia = convierteString(datos_uci[2]),edad = datos_uci[3],embarazo = convierteString(datos_uci[4]),diabetes = convierteString(datos_uci[5]),asma = convierteString(datos_uci[6]),inmunosupresores = convierteString(datos_uci[7]),hipertension = convierteString(datos_uci[8]),otra_enf = convierteString(datos_uci[9]),cardiovascular = convierteString(datos_uci[10]),bmi = datos_uci[11],renal = convierteString(datos_uci[12]),fumador = convierteString(datos_uci[13]),contacto = convierteString(datos_uci[14]),estatura = to_predict_list[15],peso = to_predict_list[16],resultado_rf = convierteString(rf_p),resultado_rl=convierteString(lr_p))
+        return render_template("result.html", fecha1=fecha,result=round(result[0][0],3)*100,result2 = round(result2[0][0],3)*100,fecha2 = fecha2,diferencia_pais1 = round(diferencia_pais1[0][0],3),diferencia_pais2 = round(diferencia_pais2[0][0],3),pais1 = to_predict_list[2],pais2 = to_predict_list[3],casos_pais1 = casos_pais1,casos_pais2 = casos_pais2,sexo = int(datos_uci[0]),intubacion = convierteString(datos_uci[1]),neumonia = convierteString(datos_uci[2]),edad = datos_uci[3],embarazo = convierteString(datos_uci[4]),diabetes = convierteString(datos_uci[5]),asma = convierteString(datos_uci[6]),inmunosupresores = convierteString(datos_uci[7]),hipertension = convierteString(datos_uci[8]),otra_enf = convierteString(datos_uci[9]),cardiovascular = convierteString(datos_uci[10]),bmi = datos_uci[11],renal = convierteString(datos_uci[12]),fumador = convierteString(datos_uci[13]),contacto = convierteString(datos_uci[14]),estatura = to_predict_list[15],peso = to_predict_list[16],resultado_nv = convierteString(naive))
 
 if __name__=="__main__":
 
