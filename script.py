@@ -145,17 +145,7 @@ def convierteString(elemento):
         return "No especificado."
 
 def get_muertes():
-    dataset_6 = pd.read_csv('https://raw.githubusercontent.com/CSSEGISandData/COVID-19/master/csse_covid_19_data/csse_covid_19_time_series/time_series_covid19_confirmed_global.csv')
-    gente_muerta = np.where(dataset_6['date_died'] == '9999-99-99')
-    gente_muerta = np.delete(np.array(dataset_6),gente_muerta,axis = 0)
-    total_muertos = gente_muerta.shape[0]
-    gente_muerta=pd.DataFrame(gente_muerta,columns = dataset_6.columns)
-    gente_muerta_covid_pos = np.where(gente_muerta['covid_res'] == 1)
-    gente_muerta_covid = np.array(np.where(gente_muerta['covid_res'] == 1)).shape[1]
-    gente_muerta = np.delete(np.array(gente_muerta),gente_muerta_covid_pos,axis = 0)
-    gente_muerta=pd.DataFrame(gente_muerta,columns = dataset_6.columns)
-    gente_uci = np.shape(np.where(gente_muerta['icu'] == 1))[1]
-    cadena = "porcentaje de muertes totales del estudio: {}%, de los cuales padecen covid son un : {}%, de los cuales un {}% se encontraban en la uci con covid".format(round((total_muertos/np.array(dataset_6).shape[0])*100,2),round((gente_muerta_covid/total_muertos)*100,2),round((gente_uci/total_muertos)*100,2))
+    cadena = pickle.load(open("covid.pkl","rb"))
     return cadena
 
 @app.route('/result',methods = ['POST'])
