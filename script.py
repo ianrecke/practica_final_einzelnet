@@ -144,6 +144,19 @@ def convierteString(elemento):
     else:
         return "No especificado."
 
+def get_muertes():
+    dataset_6 = pd.read_csv('https://raw.githubusercontent.com/CSSEGISandData/COVID-19/master/csse_covid_19_data/csse_covid_19_time_series/time_series_covid19_confirmed_global.csv')
+    gente_muerta = np.where(dataset_6['date_died'] == '9999-99-99')
+    gente_muerta = np.delete(np.array(dataset_6),gente_muerta,axis = 0)
+    total_muertos = gente_muerta.shape[0]
+    gente_muerta=pd.DataFrame(gente_muerta,columns = dataset_6.columns)
+    gente_muerta_covid_pos = np.where(gente_muerta['covid_res'] == 1)
+    gente_muerta_covid = np.array(np.where(gente_muerta['covid_res'] == 1)).shape[1]
+    gente_muerta = np.delete(np.array(gente_muerta),gente_muerta_covid_pos,axis = 0)
+    gente_muerta=pd.DataFrame(gente_muerta,columns = dataset_6.columns)
+    gente_uci = np.shape(np.where(gente_muerta['icu'] == 1))[1]
+    cadena = "porcentaje de muertes totales del estudio: {}%, de los cuales padecen covid son un : {}%, de los cuales un {}% se encontraban en la uci con covid".format(round((total_muertos/np.array(dataset_6).shape[0])*100,2),round((gente_muerta_covid/total_muertos)*100,2),round((gente_uci/total_muertos)*100,2))
+    return cadena
 
 @app.route('/result',methods = ['POST'])
 def result():
@@ -164,6 +177,7 @@ def result():
         result = diferencia_covid(result,world_cases)
         result2 = diferencia_covid(result2,world_cases)
         
+        cadena = get_muertes()
         
         datos_uci = to_predict_list[4:]
         obesidad = calculaBMI(int(datos_uci[11]),int(datos_uci[12]))
@@ -181,7 +195,7 @@ def result():
         except ValueError:
             prediction='Error en el formato de los datos'
         
-        return render_template("result.html", fecha1=fecha,result=round(result[0][0],3)*100,result2 = round(result2[0][0],3)*100,fecha2 = fecha2,diferencia_pais1 = round(diferencia_pais1[0][0],3),diferencia_pais2 = round(diferencia_pais2[0][0],3),pais1 = to_predict_list[2],pais2 = to_predict_list[3],casos_pais1 = casos_pais1,casos_pais2 = casos_pais2,sexo = int(datos_uci[0]),intubacion = convierteString(datos_uci[1]),neumonia = convierteString(datos_uci[2]),edad = datos_uci[3],embarazo = convierteString(datos_uci[4]),diabetes = convierteString(datos_uci[5]),asma = convierteString(datos_uci[6]),inmunosupresores = convierteString(datos_uci[7]),hipertension = convierteString(datos_uci[8]),otra_enf = convierteString(datos_uci[9]),cardiovascular = convierteString(datos_uci[10]),bmi = datos_uci[11],renal = convierteString(datos_uci[12]),fumador = convierteString(datos_uci[13]),contacto = convierteString(datos_uci[14]),estatura = to_predict_list[15],peso = to_predict_list[16],resultado_nv = convierteString(naive))
+        return render_template("result.html", fecha1=fecha,result=round(result[0][0],3)*100,result2 = round(result2[0][0],3)*100,fecha2 = fecha2,diferencia_pais1 = round(diferencia_pais1[0][0],3),diferencia_pais2 = round(diferencia_pais2[0][0],3),pais1 = to_predict_list[2],pais2 = to_predict_list[3],casos_pais1 = casos_pais1,casos_pais2 = casos_pais2,sexo = int(datos_uci[0]),intubacion = convierteString(datos_uci[1]),neumonia = convierteString(datos_uci[2]),edad = datos_uci[3],embarazo = convierteString(datos_uci[4]),diabetes = convierteString(datos_uci[5]),asma = convierteString(datos_uci[6]),inmunosupresores = convierteString(datos_uci[7]),hipertension = convierteString(datos_uci[8]),otra_enf = convierteString(datos_uci[9]),cardiovascular = convierteString(datos_uci[10]),bmi = datos_uci[11],renal = convierteString(datos_uci[12]),fumador = convierteString(datos_uci[13]),contacto = convierteString(datos_uci[14]),estatura = to_predict_list[15],peso = to_predict_list[16],resultado_nv = convierteString(naive),cadena = cadena)
 
 if __name__=="__main__":
 

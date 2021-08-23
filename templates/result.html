@@ -47,7 +47,6 @@
    			<th>Neumonia: {{neumonia}}</th>
    			<th>Embarazo: {{embarazo}}</th>
    			<th>Diabetes: {{diabetes}}</th>
-   			<th>Intubación: {{intubacion}}</th>
    			<th>Inmunosupresores: {{inmunosupresores}}</th>
    			<th>Asma: {{asma}}</th>
    			<th>Hipertension: {{hipertension}}</th>
@@ -61,6 +60,9 @@
 
    	<h3>¿RIESGO DE PODER SER INGRESADO EN LA UCI? </h3>
    			{{resultado_nv}}
+   	{%if resultado_nv == 'Si.'%}
+   		<h3>ESTADISTICOS DE MUERTES POR COVID EN EL ESTUDIO:</h3>
+   		{{cadena}}
 
 
    
