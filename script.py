@@ -128,7 +128,7 @@ def calculaBMI(estatura,peso):
 
 def prediccion_uci(datos):
     naive = pickle.load(open("naive_bayes.pkl","rb"))
-    naive = randomForest.predict(np.array(datos).reshape(1,-1))
+    naive = naive.predict(np.array(datos).reshape(1,-1))
     return naive
 
 
